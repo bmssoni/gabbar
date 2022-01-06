@@ -1,1 +1,13 @@
-Seetal I Love You
+backupfolder="/mnt/dbbackup/dbbackup/"
+
+touch /mnt/dbbackup/dbbackup/update_access_time
+find $backupfolder -mtime +$10 -exec rm {} \;
+find $backupfolder -type d -empty -delete
+touch /mnt/dbbackup/dbbackup/output.txt
+
+let Days=1
+logs=/mnt/dbbackup/dbbackup/output.txt
+
+find $ndb_dir -mtime -$Days -print -exec cp -r --parent {} $backupfolder \; >> $logs
+
+find $ndb_dir -mtime -$Days -print
